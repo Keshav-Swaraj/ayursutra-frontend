@@ -8,7 +8,7 @@ const Hero = () => {
           {/* Left Column */}
           <div className="space-y-8">
             <h1 className="text-5xl font-bold text-gray-900 leading-tight">
-              Modern Panchakarma 
+              Modern Panchakarma Management
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
               Transform your wellness journey with our comprehensive Ayurvedic management platform. 
