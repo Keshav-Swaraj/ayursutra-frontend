@@ -29,7 +29,7 @@ const Hero = () => {
             <div className="w-full max-w-md bg-gray-300 rounded-lg overflow-hidden">
               <video 
                 className="w-full h-full object-cover" 
-                src="/public/AdobeStock_291999871_Video_HD_Preview.mov" // <--- REPLACE THIS WITH YOUR VIDEO PATH
+                src="/AdobeStock_291999871_Video_HD_Preview.mov" // <--- REPLACE THIS WITH YOUR VIDEO PATH
                 autoPlay // Starts playing automatically
                 loop     // Loops the video
                 muted    // Mutes the video by default (good for autoplay)
