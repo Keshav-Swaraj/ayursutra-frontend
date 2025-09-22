@@ -24,10 +24,19 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Image Placeholder */}
+          {/* Right Column - Video */}
           <div className="flex justify-center">
-            <div className="w-full max-w-md h-80 bg-gray-300 rounded-lg flex items-center justify-center">
-              <span className="text-gray-500 text-lg">Image Placeholder</span>
+            <div className="w-full max-w-md bg-gray-300 rounded-lg overflow-hidden">
+              <video 
+                className="w-full h-full object-cover" 
+                src="/public/AdobeStock_291999871_Video_HD_Preview.mov" // <--- REPLACE THIS WITH YOUR VIDEO PATH
+                autoPlay // Starts playing automatically
+                loop     // Loops the video
+                muted    // Mutes the video by default (good for autoplay)
+                playsInline // Important for iOS autoplay
+              >
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>

@@ -33,7 +33,6 @@ const DoctorSidebar = () => {
         {navItem('/doctor-dashboard', 'Dashboard', isDashboard)}
         {navItem('/doctor-patients', 'Patients', location.pathname === '/doctor-patients')}
         {navItem('/doctor-schedule', 'Schedule', location.pathname === '/doctor-schedule')}
-        {navItem('/doctor-analytics', 'Analytics', location.pathname === '/doctor-analytics')}
         {navItem('/doctor-protocols', 'Protocols', location.pathname === '/doctor-protocols')}
       </nav>
     </div>

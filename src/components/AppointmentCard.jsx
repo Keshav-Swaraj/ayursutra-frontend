@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const statusStyles = {
   upcoming: {
@@ -13,11 +13,36 @@ const statusStyles = {
   },
 };
 
-const AppointmentCard = ({ date, month, time, doctorName, treatmentType, status = 'upcoming' }) => {
+const AppointmentCard = ({ appointment, status = 'upcoming', onViewDetails, onReschedule }) => {
+  const [showActions, setShowActions] = useState(false);
   const styles = statusStyles[status] || statusStyles.upcoming;
+  
+  // Handle both old props format and new appointment object
+  const appointmentDate = appointment?.date ? new Date(appointment.date) : new Date();
+  const date = appointmentDate.getDate();
+  const month = appointmentDate.toLocaleDateString('en-US', { month: 'short' });
+  const time = appointmentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const doctorName = appointment?.doctor?.name || 'Dr. Unknown';
+  const treatmentType = appointment?.protocol?.name || appointment?.notes || 'Consultation';
+
+  const handleViewDetails = () => {
+    if (onViewDetails) {
+      onViewDetails(appointment);
+    }
+  };
+
+  const handleReschedule = () => {
+    if (onReschedule) {
+      onReschedule(appointment);
+    }
+  };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex items-center justify-between">
+    <div 
+      className="w-full bg-white rounded-lg shadow-sm border border-gray-100 p-4 flex items-center justify-between hover:shadow-md transition-shadow"
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
+    >
       {/* Left: Date block */}
       <div className={`w-16 h-16 ${styles.leftBg} rounded-md flex flex-col items-center justify-center shrink-0`}> 
         <span className="text-xl font-bold text-gray-900">{date}</span>
@@ -34,12 +59,35 @@ const AppointmentCard = ({ date, month, time, doctorName, treatmentType, status 
             <p className="text-sm text-gray-600 truncate">{treatmentType}</p>
           </div>
           <p className="text-sm text-gray-500 mt-1">{time}</p>
+          {appointment?.notes && (
+            <p className="text-xs text-gray-400 mt-1 truncate">{appointment.notes}</p>
+          )}
         </div>
       </div>
 
-      {/* Right: Status badge */}
-      <div className={`px-3 py-1 text-sm font-medium rounded-full ${styles.badgeBg} capitalize`}>
-        {styles.label}
+      {/* Right: Status badge and actions */}
+      <div className="flex items-center space-x-3">
+        <div className={`px-3 py-1 text-sm font-medium rounded-full ${styles.badgeBg} capitalize`}>
+          {styles.label}
+        </div>
+        
+        {/* Action buttons - show on hover for upcoming appointments */}
+        {status === 'upcoming' && showActions && (
+          <div className="flex space-x-2">
+            <button
+              onClick={handleViewDetails}
+              className="px-3 py-1 text-xs bg-ayur-green text-white rounded hover:bg-green-700 transition-colors"
+            >
+              View
+            </button>
+            <button
+              onClick={handleReschedule}
+              className="px-3 py-1 text-xs border border-ayur-green text-ayur-green rounded hover:bg-green-50 transition-colors"
+            >
+              Reschedule
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
